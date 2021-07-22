@@ -1,7 +1,7 @@
 package zlog
 
 type LogEntry struct {
-	Id        string `json:"id,omitempty"`
+	ID        string `json:"id,omitempty"`
 	Level     Level  `json:"level,omitempty"`
 	Service   string `json:"service,omitempty"`
 	Message   string `json:"message,omitempty"`
