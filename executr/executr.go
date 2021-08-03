@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-const url = "https://executr.zytekaron.com/"
+const BaseURL = "https://executr.zyte.dev/"
 
 type Request struct {
 	ID   string        `json:"id,omitempty"`
@@ -33,7 +33,7 @@ func New(token string) *Executr {
 
 func (e *Executr) Run(code string, args ...interface{}) (data interface{}, err error) {
 	var res *types.Response
-	res, err = zgo.Request(http.MethodPost, url+"run", e.Token, &Request{Code: code, Args: args})
+	res, err = zgo.Request(http.MethodPost, BaseURL+"run", e.Token, &Request{Code: code, Args: args})
 	if err != nil {
 		return nil, err
 	}
@@ -43,7 +43,7 @@ func (e *Executr) Run(code string, args ...interface{}) (data interface{}, err e
 
 func (e *Executr) Call(id string, args ...interface{}) (data interface{}, err error) {
 	var res *types.Response
-	res, err = zgo.Request(http.MethodPost, url+id, e.Token, &Request{ID: id, Args: args})
+	res, err = zgo.Request(http.MethodPost, BaseURL+id, e.Token, &Request{ID: id, Args: args})
 	if err != nil {
 		return nil, err
 	}
@@ -53,7 +53,7 @@ func (e *Executr) Call(id string, args ...interface{}) (data interface{}, err er
 
 func (e *Executr) Get(id string) (data *Executor, err error) {
 	var res *types.Response
-	res, err = zgo.Request(http.MethodGet, url+id, e.Token, &Request{ID: id})
+	res, err = zgo.Request(http.MethodGet, BaseURL+id, e.Token, &Request{ID: id})
 	if err != nil {
 		return nil, err
 	}
@@ -63,16 +63,16 @@ func (e *Executr) Get(id string) (data *Executor, err error) {
 }
 
 func (e *Executr) Delete(id string) (err error) {
-	_, err = zgo.Request(http.MethodDelete, url+id, e.Token, &Request{ID: id})
+	_, err = zgo.Request(http.MethodDelete, BaseURL+id, e.Token, &Request{ID: id})
 	return err
 }
 
 func (e *Executr) Patch(ex *Executor) (err error) {
-	_, err = zgo.Request(http.MethodPatch, url+ex.ID, e.Token, ex)
+	_, err = zgo.Request(http.MethodPatch, BaseURL+ex.ID, e.Token, ex)
 	return err
 }
 
 func (e *Executr) Post(ex *Executor) (err error) {
-	_, err = zgo.Request(http.MethodPost, url, e.Token, ex)
+	_, err = zgo.Request(http.MethodPost, BaseURL, e.Token, ex)
 	return err
 }
